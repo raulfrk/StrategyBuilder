@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "strategybuilder"
+version = "0.1.0"
+description = ""
+authors = ["Raul Farkas <raulfrk.wk@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.0"
+numpy = "^1.26.4"
+scikit-learn = "^1.4.1.post1"
+otpclient = {git = "https://github.com/raulfrk/OpenTradingPlatformPythonClient", rev = "v0.2.0"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
