@@ -10,9 +10,12 @@ python = "^3.11"
 pandas = "^2.2.0"
 numpy = "^1.26.4"
 scikit-learn = "^1.4.1.post1"
-otpclient = {git = "https://github.com/raulfrk/OpenTradingPlatformPythonClient", rev = "v0.2.0"}
-
-
+otpclient = { git = "https://github.com/raulfrk/OpenTradingPlatformPythonClient", rev = "v0.2.0" }
+gymnasium = "^0.29.0"
+backtesting = "^0.3.0"
+sb3_contrib = "^2.3.0"
+pandas_ta = "0.3.14b"
+dill = "^0.3.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

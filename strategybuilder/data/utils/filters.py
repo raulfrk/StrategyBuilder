@@ -7,6 +7,9 @@ def filter_time(data: pd.DataFrame, within_hours: list[tuple[int, int]] | None =
                 within_days: list[tuple[datetime, datetime]] | None = None,
                 exclude_days: list[tuple[datetime, datetime]] | None = None,
                 on_week_days: list[int] | None = None) -> pd.DataFrame:
+    """
+    Given a dataframe, filter the data based on the time of the day, the days of the week, and the days of the month.
+    """
     if within_days:
         flt = None
         for days in within_days:
