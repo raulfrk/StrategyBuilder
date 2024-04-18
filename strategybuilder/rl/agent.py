@@ -76,7 +76,7 @@ class ReportingCallback(BaseCallback):
 
 def train_agent(env, eval_env, save_path: str, eval_freq=10000, n_eval_episodes=20, max_timesteps=1000000,
                 checkpoint_save_freq=100_000, with_reporting: bool = False, reward_threshold=0.2,
-                max_no_improvement_evals=3, use_stop_on_no_improvement = False, **kwargs):
+                max_no_improvement_evals=3, use_stop_on_no_improvement=False, **kwargs):
     # callback_on_best = StopTrainingOnRewardThreshold(reward_threshold=reward_threshold, verbose=1)
     stop_train_callback = StopTrainingOnNoModelImprovement(max_no_improvement_evals=max_no_improvement_evals, verbose=1)
     if use_stop_on_no_improvement:
@@ -140,11 +140,13 @@ def create_taining_envs(train, test, env_name, obs_columns, n_subproc, commissio
 
     return train_env, eval_env
 
-def create_taining_envs_multi_symbol(train_datasets, test, env_name, obs_columns, n_subproc, commission, use_subproc=False, **kwargs):
+
+def create_taining_envs_multi_symbol(train_datasets, test, env_name, obs_columns, n_subproc, commission,
+                                     use_subproc=False, **kwargs):
     train_data = []
     train_envs = []
     for train in train_datasets:
-        train_data.extend(np.array_split(train, n_subproc//len(train_datasets)))
+        train_data.extend(np.array_split(train, n_subproc // len(train_datasets)))
     for env_data in train_data:
         def f():
             env = make(env_name, data=env_data, obs_columns=obs_columns, reward_multiplier=1, commission=commission,
@@ -159,7 +161,8 @@ def create_taining_envs_multi_symbol(train_datasets, test, env_name, obs_columns
         train_env = DummyVecEnv(train_envs)
     train_env = VecNormalize(train_env, clip_obs=100, clip_reward=10)
 
-    eval_env = make(env_name, data=test[0], obs_columns=obs_columns, reward_multiplier=1, commission=commission, **kwargs)
+    eval_env = make(env_name, data=test[0], obs_columns=obs_columns, reward_multiplier=1, commission=commission,
+                    **kwargs)
     eval_env = Monitor(eval_env)
     eval_env = DummyVecEnv([lambda: eval_env])
     eval_env = VecNormalize(eval_env, clip_obs=100, clip_reward=10)
